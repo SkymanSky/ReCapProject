@@ -17,7 +17,7 @@ namespace ConsoleUI
                 Console.WriteLine("Car Id:{3} -Car Description:{0} - Car Model Year:{1} - Car Daily Price:{2}", car.Description,car.ModelYear,car.DailyPrice, car.CarId);
             }
 
-            Console.WriteLine("-------GetById:2----------");
+            Console.WriteLine("-------GetById:2-----------");
 
             foreach (var car in carManager.GetById(2))
             {
