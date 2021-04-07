@@ -13,13 +13,20 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public void Add(Car entity)
         {
-            throw new NotImplementedException();
-            using (ReCapProjectDbContext context=new ReCapProjectDbContext())
+            if (entity.Description.Length > 2 && entity.DailyPrice > 0)
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
+                using (ReCapProjectDbContext context = new ReCapProjectDbContext())
+                {
+                    var addedEntity = context.Entry(entity);
+                    addedEntity.State = EntityState.Added;
+                    context.SaveChanges();
+                }
             }
+            else
+            {
+                Console.WriteLine("Araba tanımı 2 karakterden büyük ve araba günlük kiralama fiyatı 0 dan büyük olmalıdır!!!");
+            }
+            
         }
 
         public void Delete(Car entity)
