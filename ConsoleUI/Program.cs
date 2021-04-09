@@ -12,15 +12,125 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //CarTest();
+            //GetCarDetails();
+            //CarAddTest();
+
+            //ColorAddTest();
+            //ColorDeleteTest();
+            //ColorUpdateTest();
+            //ColorGetAll();
+
+
             //BrandTest();
-            //
+            //BrandGetAll();
+            //BrandAddTest();
+            //BrandDeleteTest();
+            //BrandUpdateTest();
+        }
+
+        private static void CarAddTest()
+        {
+            Console.WriteLine("---------Cars---------");
+            GetCarDetails();
+            Console.WriteLine("---------Added Cars---------");
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Add(new Car
+            {
+                BrandId = 1,
+                ColorId = 2,
+                DailyPrice = 21,
+                Description = "Benzin Otomatik",
+                ModelYear = "2019",
+                ModelName = "Juke"
+            });
+            GetCarDetails();
+        }
+
+        private static void BrandUpdateTest()
+        {
+            Console.WriteLine("--------Brands------");
+            BrandGetAll();
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            brandManager.Update(new Brand {Id = 4, BrandName = "Geely"});
+            Console.WriteLine("--------Updated Brands------");
+            BrandGetAll();
+        }
+
+        private static void BrandDeleteTest()
+        {
+            Console.WriteLine("--------Brands------");
+            BrandGetAll();
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            brandManager.Delete(new Brand {Id = 1002});
+            Console.WriteLine("--------After Removing - Brands------");
+            BrandGetAll();
+        }
+
+        private static void BrandAddTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            brandManager.Add(new Brand {BrandName = "BMW"});
+            BrandGetAll();
+        }
+
+        private static void BrandGetAll()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.Id + "-" + brand.BrandName);
+            }
+        }
+
+        private static void ColorGetAll()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.Id + "-" + color.ColorName);
+            }
+        }
+
+        private static void ColorUpdateTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            colorManager.Update(new Color {Id = 4, ColorName = "Siyah"});
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.Id + "-" + color.ColorName);
+            }
+        }
+
+        private static void ColorDeleteTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            colorManager.Delete(new Color {Id = 5});
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.Id + "-" + color.ColorName);
+            }
+        }
+
+        private static void ColorAddTest()
+        {
+            ColorManager addNewColor = new ColorManager(new EfColorDal());
+            addNewColor.Add(new Color {ColorName = "Black"});
+
+            foreach (var color in addNewColor.GetAll())
+            {
+                Console.WriteLine(color.ColorName);
+            }
+
+            addNewColor.GetAll();
+        }
+
+        private static void GetCarDetails()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
             foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.BrandName+"-"+car.ModelName+"-"+car.ColorName+"-"+car.DailyPrice);
+                Console.WriteLine(car.BrandName + "-" + car.ModelName + "-" + car.ColorName + "-" + car.DailyPrice);
             }
-
-            
         }
 
         private static void BrandTest()
