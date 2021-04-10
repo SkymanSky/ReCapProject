@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,45 +19,52 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
-        //public List<Car> GetById(int carId)
-        //{
-        //    return _carDal.GetById(carId).Where(c=>c.CarId==carId).ToList();
-        //    _carDal.
-        //}
-
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.GetAll(c => c.BrandId == brandId);
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId),Messages.CarListed);
+
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>>  GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(c => c.ColorId == colorId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId),Messages.BrandListed);
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.ColorListed);
         }
 
-        public void Add(Car car)
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.CarListed);
+        }
+
+        public IResult Add(Car car)
+        {
+            if (car.ModelName.Length<2)
+            {
+                return new ErrorResult(Messages.CarModelNameInvalid);
+            }
             _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }
