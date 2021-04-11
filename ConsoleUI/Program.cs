@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using System;
 using System.Threading.Channels;
+using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -11,22 +12,36 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            var result = carManager.GetCarDetails();
-            if (result.Success == true)
+            //CarTest();
+           
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            
+            Rental rental = new Rental
+                {CarId = 2006, CustomerId = 1, RentDate = DateTime.Now, RentEndDate = DateTime.Now};
+            IResult result = rentalManager.Add(rental);
+            if (!result.Success) Console.WriteLine(result.Message);
+            if(result.Success) Console.WriteLine(result.Message);
+
+            void CarTest()
             {
-                foreach (var car in result.Data)
+                CarManager carManager = new CarManager(new EfCarDal());
+                var result = carManager.GetAll();
+                if (result.Success == true)
                 {
-                    Console.WriteLine(car.BrandName+"-"+car.ModelName);
+                    foreach (var car in result.Data)
+                    {
+                        Console.WriteLine(car.BrandId + "-" + car.ModelName);
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
+                    Console.WriteLine(result.Message);
+                }
+
                 Console.WriteLine(result.Message);
             }
-            Console.WriteLine(result.Message);
-
         }
-
-    }   
+    }
 }
+
