@@ -9,7 +9,7 @@ using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    class EfCustomerDal : EfEntityRepositoryBase<Customer, ReCapProjectDbContext>, ICustomerDal
+    public class EfCustomerDal : EfEntityRepositoryBase<Customer, ReCapProjectDbContext>, ICustomerDal
     {
         public List<CustomerDetailDto> GetCustomerDetails()
         {

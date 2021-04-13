@@ -11,7 +11,7 @@ namespace Business.Concrete
 {
     public class RentalManager:IRentalService
     {
-        IRentalDal _rentalDal;
+        private readonly IRentalDal _rentalDal;
 
         public RentalManager(IRentalDal rentalDal)
         {
@@ -27,14 +27,14 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(c => c.Id == Id), Messages.RentalListed);
         }
 
-        public IDataResult<List<Rental>> GetRentalsByBrandId(int brandId)
+        public IDataResult<List<Rental>> GetRentalsByCarId(int carId)
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(c => c.CarId == brandId), Messages.RentalListedByBrand);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(c => c.CarId == carId), Messages.RentalListedByBrand);
         }
 
-        public IDataResult<List<Rental>> GetRentalsByColorId(int colorId)
+        public IDataResult<List<Rental>> GetRentalsByCustomerId(int customerId)
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(c => c.CarId == colorId), Messages.RentalListedByColor);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(c => c.CustomerId == customerId), Messages.RentalListedByColor);
         }
 
         public IResult Add(Rental rental)

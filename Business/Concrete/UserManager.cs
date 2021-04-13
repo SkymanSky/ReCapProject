@@ -12,7 +12,7 @@ namespace Business.Concrete
 {
     public class UserManager:IUserService
     {
-        IUserDal _userDal;
+        private readonly IUserDal _userDal;
 
         public UserManager(IUserDal userDal)
         {
@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
-            _userDal.Delete(user);
+            _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
 

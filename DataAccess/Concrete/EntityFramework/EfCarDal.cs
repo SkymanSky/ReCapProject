@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car,ReCapProjectDbContext>,ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto,bool>> filter=null)
         {
             using (ReCapProjectDbContext context=new ReCapProjectDbContext())
             {
@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
                                                 
                                                 select new CarDetailDto
                                                 {
-                                                    Id=c.BrandId,
+                                                    Id=c.Id,
                                                     BrandName = b.BrandName,
                                                     ModelName = c.ModelName,
                                                     ColorName = clr.ColorName,
