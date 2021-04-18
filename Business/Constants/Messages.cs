@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Business.Constants
 {
@@ -45,5 +46,7 @@ namespace Business.Constants
         public static string RentalListedByColor="Kiralanabilir araçlar renge göre listelendi.";
 
         public static string CarImageCountOfCarError="Bir araç için en fazla beş resim eklenebilir.";
+
+        public static string AuthorizationDenied = "Yetkiniz Yok.";
     }
 }
