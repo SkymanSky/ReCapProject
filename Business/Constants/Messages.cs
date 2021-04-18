@@ -43,5 +43,7 @@ namespace Business.Constants
         public static string RentalListed="Kiralanabilir araçlar listelendi.";
         public static string RentalListedByBrand="Kiralanabilir araçlar markaya göre listelendi.";
         public static string RentalListedByColor="Kiralanabilir araçlar renge göre listelendi.";
+
+        public static string CarImageCountOfCarError="Bir araç için en fazla beş resim eklenebilir.";
     }
 }
